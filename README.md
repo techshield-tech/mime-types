@@ -9,6 +9,7 @@ leave your device.
 **Live:** https://techshield-tech.github.io/mime-types/
 
 Part of [MMOALL Developer Tools](https://mmoall.com/tools).
+Also available at [mmoall.com/tools/mime-types](https://mmoall.com/tools/mime-types).
 
 ## Features
 
@@ -49,12 +50,9 @@ Part of [MMOALL Developer Tools](https://mmoall.com/tools).
 ```
 src/
 ├── main.tsx              # Entry point
-├── index.css             # Tailwind + theme tokens (light/dark)
+├── index.css             # Tailwind import + tool-kit theme tokens (light/dark)
 ├── tool.config.ts        # Tool metadata: slug, name, description, category
-├── shell/                # Shared MMOALL tool shell (same across tool repos)
-│   ├── AppShell.tsx      # Header/footer, theme handling, embed mode
-│   ├── embed.ts          # iframe embed contract (postMessage)
-│   └── ui.tsx            # UI primitives and icons
+├── vite-env.d.ts         # Vite/TypeScript ambient types
 └── tool/                 # MIME-types–specific code
     ├── Tool.tsx          # View switcher (Lookup / Detect file / Browse all)
     ├── LookupView.tsx    # Extension ↔ MIME type lookup
@@ -66,6 +64,10 @@ src/
     ├── magic.ts          # Magic-byte signatures and hex dump
     └── detect.ts         # Extension vs. content comparison for a File
 ```
+
+The shared app shell/UI/theme/embed/SEO code (header, footer, theme toggle, embed-mode
+handling, icons, etc.) comes from the [`@mmoall/tool-kit`](https://github.com/techshield-tech/tool-kit)
+npm dependency, not a local `src/shell/` directory.
 
 ## Running locally
 
@@ -99,7 +101,8 @@ With npm: `npm install`, `npm run dev`, `npm run build`, `npm run preview`.
 
 ### Base path
 
-The asset base URL is chosen at build time in `vite.config.ts`:
+The asset base URL is chosen at build time by the `mmoallTool()` preset (from
+`@mmoall/tool-kit/vite`) that `vite.config.ts` calls into:
 
 | Condition               | `base`             | Used for                    |
 | ----------------------- | ------------------ | --------------------------- |
