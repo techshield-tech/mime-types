@@ -1,0 +1,15 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    uses: techshield-tech/tool-kit/.github/workflows/deploy-pages.yml@v0
